@@ -13,6 +13,7 @@ class PlaySoundsViewController: UIViewController {
 
     //Declared Globally
     var audioPlayer = AVAudioPlayer()
+    var audioPlayerNode = AVAudioPlayerNode()
     var recordedAudio:RecordedAudio!
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
@@ -60,10 +61,27 @@ class PlaySoundsViewController: UIViewController {
         playSoundWithPitch(1000)
     }
     
+    @IBAction func playWithDistortionAudio(sender: UIButton) {
+        stopAllAudio()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        var reverb = AVAudioUnitDistortion()
+        reverb.preGain = 20
+        reverb.wetDryMix = 90
+        audioEngine.attachNode(reverb)
+        
+        audioEngine.connect(audioPlayerNode, to: reverb, format: nil)
+        audioEngine.connect(reverb, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(AVAudioFile(forReading: recordedAudio.filePathUrl, error: nil), atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        audioPlayerNode.play()
+        
+    }
     func playSoundWithPitch(pitch:Float){
         stopAllAudio()
 
-        var audioPlayerNode = AVAudioPlayerNode()
+        //Attach player node to Engine
         audioEngine.attachNode(audioPlayerNode)
         
         var changePitchEffect = AVAudioUnitTimePitch()
@@ -77,6 +95,10 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
 
+    }
+    
+    func setupEngineWith(){
+    
     }
     
     func stopAllAudio() {

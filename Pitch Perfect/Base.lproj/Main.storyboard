@@ -126,6 +126,9 @@
                                 <state key="normal" image="waves">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="playWithDistortionAudio:" destination="Vnr-3f-Tvu" eventType="touchUpInside" id="Wx0-DU-BjV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kk7-AH-fTr">
                                 <rect key="frame" x="76" y="250" width="100" height="100"/>
