@@ -95,11 +95,7 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.startAndReturnError(nil)
         audioPlayerNode.play()
 
-    }
-    
-    func setupEngineWith(){
-    
-    }
+    }    
     
     func stopAllAudio() {
         audioPlayer.stop()
